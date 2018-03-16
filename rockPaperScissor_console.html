@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+	<title>rocksPaperScissors Exercise</title>
+</head>
+<body>
+
+<script>
+// random number function
+	var getRandomIntInclusive = function(min, max) {
+//		console.log('getRandomIntInclusive function was called successfully!');
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+	}
+
+// create computer selection for rock, paper, or scissors
+	var computer_play = function(play) {
+//		console.log('computer_play function was called and case switch begins for: ' + play);
+		switch (play) {
+			case 0:
+//				console.log('computer_play function plays:');
+				computerOption = 'ROCK';
+//				console.log(computerOption);
+				break;
+			case 1:
+//				console.log('computer_play function plays:');
+				computerOption = 'SCISSORS';
+//				console.log(computerOption);
+				break;
+			case 2:
+//				console.log('computer_play function plays:');
+				computerOption = 'PAPER';
+//				console.log(computerOption);
+				break;
+			default:
+				console.log('computer_play switch failed!');
+		}
+	}
+
+// verify user input
+	var verifyOption = function(choice) {
+		switch (choice) {
+			case 'ROCK':
+				playerOption = 'ROCK';
+				break;
+			case 'PAPER':
+				playerOption = 'PAPER';
+				break;
+			case 'SCISSORS':
+				playerOption = 'SCISSORS';
+				break;
+			default:
+				option = prompt('Incorrect input! Enter one of the following (Rock, Paper, Scissors) :');
+				verifyOption(option.toUpperCase());
+		}
+	}
+
+// determine winning choice by comparing user to computer
+	var head2head = function(computer, user) {
+//		console.log('head2head function was called successfully!');
+		if (
+			computer == 'ROCK' &&
+			user == 'SCISSORS') {
+			computerWins++;
+			console.log('You lose! ' + computer + ' beats ' + user);
+		} else if (
+				computer == 'PAPER' &&
+				user == 'ROCK') {
+				computerWins++;
+				console.log('You lose! ' + computer + ' beats ' + user);
+		} else if (
+				computer == 'SCISSORS' &&
+				user == 'PAPER') {
+				computerWins++;
+				console.log('You lose! ' + computer + ' beats ' + user);
+		} else if (
+				computer == user) {
+				console.log('You tie! ' + computer + ' and ' + user);
+		} else {
+				playerWins++;
+				console.log('You win! ' + user + ' beats ' + computer);
+			}
+		}
+
+// user plays a 5 round game that keeps score and reports winner & loser at the end
+	var game = function game() {
+//		console.log('game function was called successfully!');
+		for (x = 0; x < 5; x++) {
+			option = prompt('Enter one of the following (Rock, Paper, Scissors) :');
+			verifyOption(option.toUpperCase());
+			myRandomNumber = getRandomIntInclusive(0,2);
+			computer_play(myRandomNumber);
+			head2head(computerOption, playerOption);
+		}
+		if (playerWins > computerWins) {
+			console.log('Congrats you win!');
+		} else if (
+				computerWins == playerWins) {
+				console.log('You tie!');
+		} else {
+				console.log('You lose!');
+		}
+
+		console.log('computerWins = ' + computerWins);
+		console.log('playerWins = ' + playerWins);
+	}
+
+// global variable declarations
+	var playerOption = 0;
+	var computerOption = 0;
+	var computerWins = 0;
+	var playerWins = 0;
+	var option;
+	var myRandomNumber;
+// start the game
+	if (playerOption == 0) {
+		game();
+	}
+
+</script>
+
+</body>
+</html>
