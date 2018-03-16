@@ -1,0 +1,66 @@
+body,html {
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: white;
+  background-color: black;
+}
+
+#header {
+  width: 320px;
+  padding: 10px;
+  border: 5px solid white;
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.buttons {
+/*putting the following value in the button element section breaks it*/
+  text-align: center;
+}
+
+.buttons > button {
+  width: 20%;
+  padding: 10px;
+  margin: auto;
+  margin-top: 50px;
+  font-weight: bold;
+}
+
+.gameResult {
+    width: 50%;
+    padding: 10px;
+    margin: auto;
+    margin-top: 50px;
+    border: 1px solid white;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+table {
+  width: 30%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 50px;
+  font-size: 12px;
+  text-align: center;
+}
+table, th, td {
+  border: 2.5px solid white;
+}
+
+th {
+  height: 20px;
+}
+
+tr:hover {
+  background-color: #ffc600;
+}
+
+
+#userName {
+  color: red;
+}

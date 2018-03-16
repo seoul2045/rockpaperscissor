@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<head>
+<!--User plays game and each time a player wins 5 games they are awarded the match and the game proceeds-->
+	<meta charset="utf-8"/>
+	<title>rocksPaperScissors Exercise</title>
+	<link rel="stylesheet" href="./rockPaperScissor-style.css"
+</head>
+<body>
+	<div id="header">
+		<h1>Classic Rock Paper Scissor</h1>
+	</div>
+<!--scoreboard table-->
+	<table id="scoreboard">
+		<tr>
+			<th colspan="4">SCOREBOARD</th>
+		</tr>
+		<tr>
+			<th>Player</th>
+			<th>Wins</th>
+			<th>Losses</th>
+			<th>Matches Won</th>
+		</tr>
+		<tr>
+			<td id="userTableName">User1</td>
+			<td id="userWins"></td>
+			<td id="userLosses"></td>
+			<td id="userMatchesWon"></td>
+		</tr>
+		<tr>
+			<td>Mr. Robot</td>
+			<td id="robotWins"></td>
+			<td id="robotLosses"></td>
+			<td id="robotMatchesWon"></td>
+		</tr>
+	</table>
+<!--display result of current game-->
+	<div class="gameResult">
+		<p id="result">Click the Rock, Paper or Scissor button!</p>
+		<p id="matchResult">Match Result</p>
+	</div>
+<!--buttons for user selection-->
+	<div class="buttons">
+		<button id="btnRock">Rock</button>
+		<button id="btnPaper">Paper</button>
+		<button id="btnScissor">Scissor</button>
+	</div>
+<script>
+//get userName and update table
+	document.getElementById('userTableName').textContent = promptUserName();
+//userName prompt function
+	function promptUserName() {
+		let userName = prompt("Enter your name:", "User1") ;
+		if (userName == null) {
+			return userName = "User1";
+		} else if (userName ==	"" || userName.startsWith(" ")) {
+				return userName = "User1";
+			} else {
+				return userName;
+			}
+	}
+//create nodeList of all buttons
+	const buttonList = document.querySelectorAll("button");
+	console.log(buttonList);
+//event listener for each button
+	//UNRESOLVED: can I have this execute game() instead of placing it in the getUserOption()
+	buttonList.forEach(id => id.addEventListener('click', getUserOption));
+//assign buttons and pass the value upon click
+	function getUserOption(e) {
+		switch (e.currentTarget.id) {
+			case "btnRock":
+				playerOption = "ROCK";
+				game();
+				break;
+			case "btnPaper":
+				playerOption = "PAPER";
+				game();
+				break;
+			case "btnScissor":
+				playerOption = "SCISSORS";
+				game();
+				break;
+	}}
+// random number function
+	var getRandomIntInclusive = function(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+	}
+// user plays a game; keep score and reports winner & loser when a user reaches 5 wins
+	var game = function game() {
+		myRandomNumber = getRandomIntInclusive(0,2);
+		computer_play(myRandomNumber);
+		head2head(computerOption, playerOption);
+		updateTableWinsLosses();
+		checkGameWinner(gameCounterComputer, gameCounterPlayer);
+	}
+//function update table each game
+	var updateTableWinsLosses = function() {
+		document.getElementById('robotWins').textContent = computerWins;
+		document.getElementById('robotLosses').textContent = playerWins;
+		document.getElementById('userWins').textContent = playerWins;
+		document.getElementById('userLosses').textContent = computerWins;
+	}
+// create computer selection for rock, paper, or scissors
+	var computer_play = function(play) {
+		switch (play) {
+			case 0:
+				computerOption = 'ROCK';
+				break;
+			case 1:
+				computerOption = 'SCISSORS';
+				break;
+			case 2:
+				computerOption = 'PAPER';
+				break;
+			default:
+				console.log('computer_play switch failed!');
+		}
+	}
+// determine winning choice by comparing user to computer
+	var head2head = function(computer, user) {
+		if (
+			computer == 'ROCK' &&
+			user == 'SCISSORS') {
+			computerWins++;
+			gameCounterComputer += 1;
+			document.getElementById('result').textContent = 'You lose! ' + computer + ' beats ' + user;
+		} else if (
+				computer == 'PAPER' &&
+				user == 'ROCK') {
+				computerWins++;
+				gameCounterComputer += 1;
+				document.getElementById('result').textContent = 'You lose! ' + computer + ' beats ' + user;
+		} else if (
+				computer == 'SCISSORS' &&
+				user == 'PAPER') {
+				computerWins++;
+				gameCounterComputer += 1;
+				document.getElementById('result').textContent = 'You lose! ' + computer + ' beats ' + user;
+		} else if (
+				computer == user) {
+				document.getElementById('result').textContent = 'You tie! ' + computer + ' and ' + user;
+		} else {
+				playerWins++;
+				gameCounterPlayer += 1;
+				document.getElementById('result').textContent = 'You win! ' + user + ' beats ' + computer;
+			}
+		}
+//function to check who had 5 winning games and won the match
+		function checkGameWinner() {
+			if (gameCounterComputer == 5) {
+				document.getElementById('matchResult').textContent = 'Mr. Robot wins the 5 game match!';
+				computerMatchWins += 1;
+				document.getElementById('robotMatchesWon').textContent = computerMatchWins;
+				gameCounterComputer = 0;
+				gameCounterPlayer = 0;
+			} else if (gameCounterPlayer == 5) {
+				document.getElementById('matchResult').textContent = userTableName.textContent + ' wins the 5 game match!';
+				playerMatchWins += 1;
+				document.getElementById('userMatchesWon').textContent = playerMatchWins;
+				gameCounterPlayer = 0;
+				gameCounterComputer = 0;
+			} else {
+				document.getElementById('matchResult').textContent = "Match Result";
+			}
+		}
+// global variable declarations
+	var playerOption = 0;
+	var computerOption = 0;
+	var computerWins = 0;
+	var playerWins = 0;
+	var playerMatchWins = 0;
+	var computerMatchWins = 0;
+	var gameCounterComputer = 0;
+	var gameCounterPlayer = 0;
+	var option;
+	var myRandomNumber;
+</script>
+</body>
+</html>
